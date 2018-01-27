@@ -8,8 +8,8 @@ function ActionClass:New(name, eventFunction)
     return new
 end
 
-function ActionClass:Fire()
-    self.eventFunction()
+function ActionClass:Fire(pluginModel)
+    self.eventFunction(pluginModel)
 end
 
 function ActionClass:GetName()

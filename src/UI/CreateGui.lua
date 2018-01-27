@@ -21,7 +21,7 @@ local function SetAnimations(button, hoverProperties)
     button.MouseLeave:Connect(function() toNormal:Play() end)
 end
 
-local function CreateSection(section, parent)
+local function CreateSection(section, parent, pluginModel)
     local sectionButton = Create'TextButton'{
         AutoButtonColor = false,
         BackgroundColor3 = Color3.fromRGB(68, 87, 175),
@@ -101,7 +101,7 @@ local function CreateSection(section, parent)
         actionButton.MouseButton1Click:Connect(function()
             if not enabled then
                 enabled = true
-                action:Fire()
+                action:Fire(pluginModel)
                 wait()
                 enabled = false
             end
@@ -119,7 +119,7 @@ local function CreateGui(size, pluginModel)
         ClipsDescendants = false,
         Parent = gui,
         Position = UDim2.new(0, 0, .5, 0),
-        Size = UDim2.new(.2, 0, size, 0)
+        Size = UDim2.new(.1, 0, size, 0)
     }
 
     local listLayout = Create'UIListLayout'{
@@ -131,7 +131,7 @@ local function CreateGui(size, pluginModel)
     }
 
     for name, section in pairs(pluginModel.Sections) do
-        CreateSection(section, frame)
+        CreateSection(section, frame, pluginModel)
     end
 
     return gui

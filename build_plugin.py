@@ -1,27 +1,27 @@
 import os
-import ItemClasses
+from item_classes import *
 
 # settings
 SOURCE = "src"
 EXPORT_DIRECTORY = "builds"
 EXPORT_NAME = "uiRBX_plugin"
 
-root = ItemClasses.Root()
-pluginFolder = ItemClasses.Folder("uiRBX")
+root = Root()
+pluginFolder = Folder("uiRBX")
 root.addChild(pluginFolder)
 
 def getContent(directory, parent):
     for filename in os.listdir(directory):
         if filename.endswith(".lua"): #  it's a module script
             if directory == SOURCE:
-                script = ItemClasses.Script(filename[:-4], open(directory + "/" + filename, 'r').read())
+                script = Script(filename[:-4], open(directory + "/" + filename, 'r').read())
                 parent.addChild(script)
             else:
-                moduleScript = ItemClasses.ModuleScript(filename[:-4], open(directory + "/" + filename, 'r').read())
+                moduleScript = ModuleScript(filename[:-4], open(directory + "/" + filename, 'r').read())
                 parent.addChild(moduleScript)
 
         else: # it's folder
-            nextParent = ItemClasses.Folder(filename)
+            nextParent = Folder(filename)
             parent.addChild(nextParent)
             getContent(directory + "/" + filename, nextParent)
 

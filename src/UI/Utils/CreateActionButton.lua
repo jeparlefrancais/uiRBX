@@ -22,6 +22,7 @@ local function CreateActionButton(action, actionButtonSize, pluginModel)
         actionButton.MouseButton1Click:Connect(function()
             if not enabled then
                 enabled = true
+                pluginModel.Events.CloseActionSubMenuOpened:Fire()
                 action:Fire(pluginModel)
                 wait()
                 enabled = false
@@ -34,15 +35,16 @@ local function CreateActionButton(action, actionButtonSize, pluginModel)
 
         local subFrameSize = UDim2.new(1, 0, totalButtons, 0)
         local subFramePosition = UDim2.new(1, 0, .5, 0)
-        local subFrameHiddenSize = UDim2.new(1, 0, totalButtons, 0)
+        local subFrameHiddenSize = UDim2.new(1, 0, 0, 0)
         local subFrameHiddenPosition = UDim2.new(1, 0, .5, 0)
 
         local subFrame = Create'Frame'{
             AnchorPoint = Vector2.new(0, .5),
             BackgroundTransparency = 1,
             BorderSizePixel = 0,
-            Position = subFrameHidenPosition,
-            Size = subFrameHidenSize,
+            Position = subFrameHiddenPosition,
+            Size = subFrameHiddenSize,
+            Visible = false,
             Parent = actionButton
         }
         local subList = Create'UIListLayout'{
@@ -56,12 +58,13 @@ local function CreateActionButton(action, actionButtonSize, pluginModel)
 
         actionButton.MouseButton1Click:Connect(function()
             subFrame.Visible = true
+            pluginModel.Events.CloseActionSubMenuOpened:Fire(action:GetName())
             subFrame:TweenSizeAndPosition(
                 subFrameSize, -- end size
                 subFramePosition, -- end position
                 Enum.EasingDirection.Out,
                 Enum.EasingStyle.Quad,
-                .5, -- time
+                .2, -- time
                 true -- override
             )
         end)
@@ -72,7 +75,7 @@ local function CreateActionButton(action, actionButtonSize, pluginModel)
                 subFrameHiddenPosition, -- end position
                 Enum.EasingDirection.Out,
                 Enum.EasingStyle.Quad,
-                .5, -- time
+                .2, -- time
                 true, -- override
                 function(status) -- callback function
                     if status == Enum.TweenStatus.Completed then
@@ -112,6 +115,11 @@ local function CreateActionButton(action, actionButtonSize, pluginModel)
         end
 
         subFrame.MouseLeave:Connect(CloseSubFrame)
+        pluginModel.Events.CloseActionSubMenuOpened.Event:Connect(function(except)
+            if except ~= action:GetName() then
+                CloseSubFrame()
+            end
+        end)
     end
 
     return actionButton

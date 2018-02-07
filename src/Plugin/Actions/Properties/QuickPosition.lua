@@ -16,6 +16,21 @@ return ActionClass:New(
         'Bottom-Right'
     },
     function(subAction, pluginModel)
-        pluginModel.Dialogs.Error('This functionality [' .. subAction .. '] is not implemented yet.')
+        local obj = pluginModel.Selection:GetInstance('GuiObject')
+        if obj then
+            local x, y = 0, 0
+            if subAction == 'Center' or subAction == 'Center-Left' or subAction == 'Center-Right' then
+                y = .5
+            elseif subAction == 'Bottom-Center' or subAction == 'Bottom-Left' or subAction == 'Bottom-Right' then
+                y = 1
+            end
+            if subAction == 'Center' or subAction == 'Top-Center' or subAction == 'Bottom-Center' then
+                x = .5
+            elseif subAction == 'Center-Left' or subAction == 'Top-Left' or subAction == 'Bottom-Left' then
+                x = 1
+            end
+            obj.AnchorPoint = Vector2.new(x, y)
+            obj.Position = UDim2.new(x, 0, y, 0)
+        end
     end
 )

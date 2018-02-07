@@ -40,7 +40,7 @@ Creates a new section and generates the action buttons from that given section.
 
 #### GetAnimation
 ##### Arguments: Instance object, number duration, dictionary propertyGoals, easingStyle, easingDirection, bool reverse, number repeatCount, number delayTime
-Returns an *Tween* created from the *[TweenService](wiki.roblox.com/index.php?title=API:Class/TweenService)*.
+Returns a *Tween* created from the *[TweenService](wiki.roblox.com/index.php?title=API:Class/TweenService)*.
 
 #### SetHoverAnimation
 ##### Arguments: GuiObject button, dictionary hoverProperties

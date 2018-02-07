@@ -2,7 +2,7 @@ local PluginFolder = script.Parent
 
 local ui = require(PluginFolder.UI.CreateGui)(.025, require(PluginFolder.Plugin.PluginModel))
 
-ui.Parent = game:GetService('Players'):WaitForChild('jeparlefrancais'):WaitForChild('PlayerGui') --game:GetService('CoreGui')
+ui.Parent = game:GetService('CoreGui')
 
 
 --[[

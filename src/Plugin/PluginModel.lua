@@ -18,5 +18,6 @@ Sections.Style:AddAction(Actions.PasteStyle)
 local PluginModel = {}
 
 PluginModel.Sections = Sections
+PluginModel.Dialogs = require(script.Parent.Parent.UI.Dialogs)
 
 return PluginModel

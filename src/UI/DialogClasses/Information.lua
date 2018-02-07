@@ -1,9 +1,9 @@
 local Create = require(script.Parent.Parent.Utils.Create)
 local CoreMessage = require(script.Parent.CoreMessage)
 
-local function Error(msg)
+local function Information(title, msg)
     
-    local dialog = CoreMessage('Error!', msg, 'Ok', Color3.fromRGB(255, 99, 99), Color3.fromRGB(179, 70, 70))
+    local dialog = CoreMessage(title, msg, 'Ok')
     
     dialog.MainButton.MouseButton1Click:Connect(function()
         dialog.Result:Fire()
@@ -12,4 +12,4 @@ local function Error(msg)
     return dialog
 end
 
-return Error
+return Information

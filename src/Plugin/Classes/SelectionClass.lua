@@ -1,5 +1,12 @@
 local SEL = game:GetService('Selection')
 
+local function IsA(obj, classList)
+    for _, class in ipairs(classList) do
+        if obj:IsA(class) then return true end
+    end
+    return false
+end
+
 local SelectionClass = {}
 
 function SelectionClass:New(pluginModel)
@@ -12,7 +19,8 @@ function SelectionClass:New(pluginModel)
 end
 
 function SelectionClass:GetInstance(filterClassName)
-    if filterClassName == nil then filterClassName = 'Instance' end
+    if filterClassName == nil then filterClassName = {'Instance'} end
+    if type(filterClassName) == 'string' then filterClassName = {filterClassName} end
 
     local selected = SEL:Get()
     local quantity = #selected
@@ -22,7 +30,7 @@ function SelectionClass:GetInstance(filterClassName)
         return self.pluginModel.Dialogs.Error(string.format('You can only select one instance [%s]', filterClassName))
     else
         local object = selected[1]
-        if object:IsA(filterClassName) then
+        if IsA(object, filterClassName) then
             return object
         else
             return self.pluginModel.Dialogs.Error(string.format('Selected instance must be of class %s', filterClassName))
@@ -31,7 +39,8 @@ function SelectionClass:GetInstance(filterClassName)
 end
 
 function SelectionClass:GetInstances(filterClassName, autoFilter)
-    if filterClassName == nil then filterClassName = 'Instance' end
+    if filterClassName == nil then filterClassName = {'Instance'} end
+    if type(filterClassName) == 'string' then filterClassName = {filterClassName} end
     if autoFilter == nil then autoFilter = true end
 
     local selected = SEL:Get()
@@ -43,7 +52,7 @@ function SelectionClass:GetInstances(filterClassName, autoFilter)
     local objects = {}
 
     for _, object in ipairs(selected) do
-        if object:IsA(filterClassName) then
+        if IsA(object, filterClassName) then
             table.insert(objects, object)
         else
             if not autoFilter then
@@ -68,7 +77,7 @@ function SelectionClass:SetInstances(...)
     SEL:Set({...})
 end
 
-function SelectionClass:SetArray(arrayInstance)
+function SelectionClass:SetInstanceArray(arrayInstance)
     SEL:Set(arrayInstance)
 end
 

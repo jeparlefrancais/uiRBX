@@ -26,7 +26,7 @@ return ActionClass:New(
             end
             if subAction == 'Center' or subAction == 'Top-Center' or subAction == 'Bottom-Center' then
                 x = .5
-            elseif subAction == 'Center-Left' or subAction == 'Top-Left' or subAction == 'Bottom-Left' then
+            elseif subAction == 'Center-Right' or subAction == 'Top-Right' or subAction == 'Bottom-Right' then
                 x = 1
             end
             obj.AnchorPoint = Vector2.new(x, y)

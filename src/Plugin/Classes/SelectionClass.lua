@@ -25,15 +25,15 @@ function SelectionClass:GetInstance(filterClassName)
     local selected = SEL:Get()
     local quantity = #selected
     if quantity == 0 then
-        return self.pluginModel.Dialogs.Error(string.format('You must select one instance [%s]', filterClassName))
+        return self.pluginModel.Dialogs.Error(string.format('You must select one instance [%s' .. string.rep(', %s', #filterClassName - 1) .. ']', unpack(filterClassName)))
     elseif quantity > 1 then
-        return self.pluginModel.Dialogs.Error(string.format('You can only select one instance [%s]', filterClassName))
+        return self.pluginModel.Dialogs.Error(string.format('You can only select one instance [%s' .. string.rep(', %s', #filterClassName - 1) .. ']', unpack(filterClassName)))
     else
         local object = selected[1]
         if IsA(object, filterClassName) then
             return object
         else
-            return self.pluginModel.Dialogs.Error(string.format('Selected instance must be of class %s', filterClassName))
+            return self.pluginModel.Dialogs.Error(string.format('Selected instance must be of class %s' .. string.rep(', %s', #filterClassName - 1) .. '. Select at least one instance.', unpack(filterClassName)))
         end
     end
 end
@@ -46,7 +46,7 @@ function SelectionClass:GetInstances(filterClassName, autoFilter)
     local selected = SEL:Get()
 
     if #selected > 0 then
-        return self.pluginModel.Dialogs.Error(string.format('You must select at least one instance [%s]', filterClassName))
+        return self.pluginModel.Dialogs.Error(string.format('You must select at least one instance [%s' .. string.rep(', %s', #filterClassName - 1) .. ']', unpack(filterClassName)))
     end
 
     local objects = {}
@@ -56,14 +56,14 @@ function SelectionClass:GetInstances(filterClassName, autoFilter)
             table.insert(objects, object)
         else
             if not autoFilter then
-                return self.pluginModel.Dialogs.Error(string.format('All selected instance(s) must be of class %s', filterClassName))
+                return self.pluginModel.Dialogs.Error(string.format('All selected instance(s) must be of class %s' .. string.rep(', %s', #filterClassName - 1), unpack(filterClassName)))
             end
         end
     end
 
     local quantity = #objects
     if quantity == 0 then
-        return self.pluginModel.Dialogs.Error(string.format('No selected instance(s) are of class %s. Select at least one instance.', filterClassName))
+        return self.pluginModel.Dialogs.Error(string.format('No selected instance(s) are of class %s' .. string.rep(', %s', #filterClassName - 1) .. '. Select at least one instance.', unpack(filterClassName)))
     else
         return objects
     end

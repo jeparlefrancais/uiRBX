@@ -22,7 +22,7 @@ local Background = Create'TextButton'{
 local toVisible = GetAnimation(Background, .5, {BackgroundTransparency = .35})
 local toInvisible = GetAnimation(Background, .5, {BackgroundTransparency = 1})
 toInvisible.Completed:Connect(function(state)
-    if state = Enum.PlaybackState.Completed then
+    if state == Enum.PlaybackState.Completed then
         Background.Visible = false
     end
 end)

@@ -5,6 +5,9 @@ return ActionClass:New(
     'Hide',
     5,
     function(pluginModel)
-        pluginModel.Dialogs.Error('This functionality is not implemented yet.')
+        local obj = pluginModel.Selection:GetInstance('GuiObject')
+        if obj then
+            obj.Visible = false
+        end
     end
 )

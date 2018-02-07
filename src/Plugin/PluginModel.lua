@@ -1,4 +1,5 @@
 local SectionClass = require(script.Parent.Classes.SectionClass)
+local SelectionClass = require(script.Parent.Classes.SelectionClass)
 
 -- PARAMETERS
 local Orders = {
@@ -24,6 +25,8 @@ for _, folder in ipairs(script.Parent.Actions:GetChildren()) do
 end
 
 PluginModel.Dialogs = require(script.Parent.Parent.UI.Dialogs)
+
+PluginModel.Selection = SelectionClass:New(PluginModel)
 
 -- ADD EVENTS
 PluginModel.Events = {

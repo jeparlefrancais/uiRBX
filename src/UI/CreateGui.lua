@@ -23,7 +23,7 @@ local function CreateGui(size, pluginModel)
         VerticalAlignment = Enum.VerticalAlignment.Center
     }
 
-    for name, section in pairs(pluginModel.Sections) do
+    for _, section in ipairs(pluginModel.Sections) do
         CreateSection(section, frame, pluginModel)
     end
 

@@ -61,8 +61,8 @@ local function CreateSection(section, parent, pluginModel)
     end
 
     local actionButtonSize = 1 / section:GetSize()
-    for order, action in pairs(section:GetActions()) do
-        CreateActionButton(action, actionButtonSize, order, pluginModel).Parent = sectionFrame
+    for _, action in ipairs(section:GetActions()) do
+        CreateActionButton(action, actionButtonSize, pluginModel).Parent = sectionFrame
     end
 end
 

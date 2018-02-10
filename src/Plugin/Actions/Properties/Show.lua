@@ -5,8 +5,8 @@ return ActionClass:New(
     'Show',
     4,
     function(pluginModel)
-        local obj = pluginModel.Selection:GetInstance('GuiObject')
-        if obj then
+        local objects = pluginModel.Selection:GetInstances('GuiObject')
+        for _, obj in ipairs(objects) do
             obj.Visible = true
         end
     end

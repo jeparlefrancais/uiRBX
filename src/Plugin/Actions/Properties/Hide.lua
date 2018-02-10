@@ -6,8 +6,10 @@ return ActionClass:New(
     5,
     function(pluginModel)
         local objects = pluginModel.Selection:GetInstances('GuiObject')
-        for _, obj in ipairs(objects) do
-            obj.Visible = false
+        if objects then
+            for _, obj in ipairs(objects) do
+                obj.Visible = false
+            end
         end
     end
 )

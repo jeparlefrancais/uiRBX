@@ -45,7 +45,7 @@ function SelectionClass:GetInstances(filterClassName, autoFilter)
 
     local selected = SEL:Get()
 
-    if #selected > 0 then
+    if #selected == 0 then
         return self.pluginModel.Dialogs.Error(string.format('You must select at least one instance [%s' .. string.rep(', %s', #filterClassName - 1) .. ']', unpack(filterClassName)))
     end
 

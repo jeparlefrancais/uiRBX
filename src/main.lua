@@ -10,9 +10,9 @@ local toolbar = plugin:CreateToolbar('UI Toolkit')
  
 -- Setup button
 local button = toolbar:CreateButton(
-	'UI Editor',
-	'Open/Close the UI',
-	'rbxassetid://57653546'
+	'Launch UI Editor',
+	'Open/Close the Editor',
+	'rbxassetid://1428166234'
 )
 button.Click:Connect(function()
 	ui.Enabled = not ui.Enabled

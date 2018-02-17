@@ -5,7 +5,7 @@ local function SelectEnumItem(title, enumType)
     
     local stringList = {}
     for _, item in ipairs(enumType:GetEnumItems()) do
-        table.insert(stringList, item.Name)
+        stringList[item.Value + 1] = item.Name
     end
 
     local dialog = SelectElementInList(title, stringList, function(selectedElement)

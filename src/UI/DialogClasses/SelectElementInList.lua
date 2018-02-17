@@ -6,7 +6,7 @@ local ElementsPerPage = 5
 
 local function SelectElementInList(title, stringList, selectedFunction)
     
-    local dialog = CoreButton(title, buttonText, Color3.fromRGB(255, 99, 99), Color3.fromRGB(179, 70, 70))
+    local dialog = CoreButton(title, 'Cancel', Color3.fromRGB(255, 99, 99), Color3.fromRGB(179, 70, 70))
     
     local totalElements = #stringList
 
@@ -30,6 +30,7 @@ local function SelectElementInList(title, stringList, selectedFunction)
     }
 
     local gridListLayout = Create'UIGridLayout'{
+        Name = 'GridLayout',
         CellPadding = UDim2.new(0, 0, 0, 5),
         CellSize = UDim2.new(1, 0, 1/totalElements, -5),
         FillDirection = Enum.FillDirection.Horizontal,

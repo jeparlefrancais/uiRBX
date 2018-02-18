@@ -15,6 +15,9 @@ function PluginClass:New(plugin)
     new.Selection = SelectionClass:New(new)
     new.Enabled = false
     new.Events = {}
+    new.Properties = {}
+    new.defaultProperties = {}
+    new.enumPropertiesChoices = {}
 
     new:AddEvent('PluginEnabledChanged') -- (bool enabled)
 
@@ -23,6 +26,17 @@ end
 
 function PluginClass:AddEvent(eventName)
     self.Events[eventName] = Instance.new('BindableEvent')
+end
+
+function PluginClass:AddBoolProperty(propertyName, defaultValue)
+    self.Properties[propertyName] = defaultValue
+    self.defaultProperties[propertyName] = defaultValue
+end
+
+function PluginClass:AddEnumProperty(propertyName, stringEnumList, defaultValue)
+    self.Properties[propertyName] = defaultValue
+    self.defaultProperties[propertyName] = defaultValue
+    self.enumPropertiesChoices[propertyName] = stringEnumList
 end
 
 function PluginClass:AddSection(sectionName, order)

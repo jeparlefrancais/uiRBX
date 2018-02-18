@@ -1,5 +1,7 @@
 local SectionClass = require(script.Parent.SectionClass)
 local SelectionClass = require(script.Parent.SelectionClass)
+local BoolPropertyClass = require(script.Parent.BoolPropertyClass)
+local StringChoicePropertyClass = require(script.Parent.StringChoicePropertyClass)
 
 local PluginClass = {}
 
@@ -16,8 +18,6 @@ function PluginClass:New(plugin)
     new.Enabled = false
     new.Events = {}
     new.Properties = {}
-    new.defaultProperties = {}
-    new.enumPropertiesChoices = {}
 
     new:AddEvent('PluginEnabledChanged') -- (bool enabled)
 
@@ -28,15 +28,12 @@ function PluginClass:AddEvent(eventName)
     self.Events[eventName] = Instance.new('BindableEvent')
 end
 
-function PluginClass:AddBoolProperty(propertyName, defaultValue)
-    self.Properties[propertyName] = defaultValue
-    self.defaultProperties[propertyName] = defaultValue
+function PluginClass:AddProperty(property)
+    self.Properties[property:GetName()] = property
 end
 
-function PluginClass:AddEnumProperty(propertyName, stringEnumList, defaultValue)
-    self.Properties[propertyName] = defaultValue
-    self.defaultProperties[propertyName] = defaultValue
-    self.enumPropertiesChoices[propertyName] = stringEnumList
+function PluginClass:GetProperty(propertyName)
+    return self.Properties[propertyName]:Get()
 end
 
 function PluginClass:AddSection(sectionName, order)

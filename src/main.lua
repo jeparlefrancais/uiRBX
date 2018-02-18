@@ -14,18 +14,26 @@ local Orders = {
 local Plugin = PluginClass:New(plugin)
 
 for _, folder in ipairs(PluginFolder.Plugin.Actions:GetChildren()) do
-    if folder.Name == 'Toolbar' then
-        for _, actionModule in ipairs(folder:GetChildren()) do
+    local section = nil
+    for _, actionModule in ipairs(folder:GetChildren()) do
+        local action = require(actionModule)
+        if action:GetType() == 'Toolbar' then
             Plugin:AddToolbarAction(require(actionModule))
-        end
-	else
-		local section = Plugin:AddSection(folder.Name, Orders[folder.Name])
-        for _, actionModule in ipairs(folder:GetChildren()) do
-            section:AddAction(require(actionModule))
+        else
+            if section == nil then
+                section = Plugin:AddSection(folder.Name, Orders[folder.Name])
+            end
+            section:AddAction(action)
         end
     end
 end
 
+-- PROPERTIES
+for _, property in ipairs(PluginFolder.Plugin.Properties:GetChildren()) do
+    Plugin:AddProperty(require(property))
+end
+
+-- EVENTS
 Plugin:AddEvent('CloseActionSubMenuOpened') -- (opt string actionName)
 
-local ui = require(PluginFolder.UI.CreateGui)(.025, Plugin)
+local ui = require(PluginFolder.UI.CreateGui)(Plugin)

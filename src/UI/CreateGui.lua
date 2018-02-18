@@ -2,7 +2,7 @@ local GetAnimation = require(script.Parent.Utils.GetAnimation)
 local Create = require(script.Parent.Utils.Create)
 local CreateSection = require(script.Parent.Utils.CreateSection)
 
-local function CreateGui(size, pluginModel)
+local function CreateGui(pluginModel)
     local gui = Create'ScreenGui'{
         Name = 'UIRbxEditor',
         Enabled = false,
@@ -16,15 +16,22 @@ local function CreateGui(size, pluginModel)
         ClipsDescendants = false,
         Parent = gui,
         Position = UDim2.new(0, 0, .5, 0),
-        Size = UDim2.new(.1, 0, size, 0)
+        Size = UDim2.new(1, 0, pluginModel:GetProperty('Size'), 0)
     }
 
-    local listLayout = Create'UIListLayout'{
+    Create'UIListLayout'{
         FillDirection = Enum.FillDirection.Vertical,
         Padding = UDim.new(0, 0),
         Parent = frame,
         SortOrder = Enum.SortOrder.LayoutOrder,
         VerticalAlignment = Enum.VerticalAlignment.Center
+    }
+
+    Create'UIAspectRatioConstraint'{
+        AspectRatio = 8,
+        AspectType = Enum.AspectType.FitWithinMaxSize,
+        DominantAxis = Enum.DominantAxis.Width,
+        Parent = frame
     }
 
     for _, section in ipairs(pluginModel.Sections) do

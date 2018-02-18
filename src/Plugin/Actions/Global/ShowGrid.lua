@@ -1,10 +1,12 @@
 local ActionClass = require(script.Parent.Parent.Parent.Classes.ActionClass)
 
 return ActionClass:New(
-    'Trigger',
-    'Show Size',
+    'Toggle',
+    'Show Grid',
     3,
-    function(pluginModel)
+    false,
+    'Hide Grid',
+    function(state, pluginModel)
         pluginModel.Dialogs.Error('This functionality is not implemented yet.')
     end
 )

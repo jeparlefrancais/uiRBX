@@ -14,7 +14,14 @@ function ActionClass:New(buttonType, name, order, ...)
     elseif buttonType == 'Selection' then
         local subButtonList, eventFunction = ...
         new.subButtonList = subButtonList
-        new.eventFunction = eventFunction  
+        new.eventFunction = eventFunction
+    
+    elseif buttonType == 'Toggle' then
+        local startState, otherStateName, eventFunction = ...
+        new.state = startState
+        new.startState = startState
+        new.otherStateName = otherStateName
+        new.eventFunction = eventFunction
         
     elseif buttonType == 'Toolbar' then
         local toolbarName, tip, image, eventFunction = ...
@@ -29,7 +36,12 @@ function ActionClass:New(buttonType, name, order, ...)
 end
 
 function ActionClass:Fire(...)
-    self.eventFunction(...)
+    if self.type == 'Toggle' then
+        self.state = not self.state
+        self.eventFunction(state, ...)
+    else
+        self.eventFunction(...)
+    end
 end
 
 function ActionClass:GetName()
@@ -58,6 +70,14 @@ end
 
 function ActionClass:GetImage()
     return self.image
+end
+
+function ActionClass:GetState()
+    return self.state
+end
+
+function ActionClass:GetOtherStateName()
+    return self.otherStateName
 end
 
 return ActionClass

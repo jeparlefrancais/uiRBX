@@ -1,4 +1,5 @@
 local Create = require(script.Parent.Create)
+local GetAnimation = require(script.Parent.GetAnimation)
 local SetHoverAnimation = require(script.Parent.SetHoverAnimation)
 
 local function CreateActionButton(action, actionButtonSize, pluginModel)
@@ -15,9 +16,11 @@ local function CreateActionButton(action, actionButtonSize, pluginModel)
         TextScaled = true
     }
 
-    SetHoverAnimation(actionButton, {BackgroundColor3 = Color3.fromRGB(84, 111, 217)})
+    
 
     if action:GetType() == 'Trigger' then
+        SetHoverAnimation(actionButton, {BackgroundColor3 = Color3.fromRGB(84, 111, 217)})
+
         local enabled = false
         actionButton.MouseButton1Click:Connect(function()
             if not enabled then
@@ -30,6 +33,8 @@ local function CreateActionButton(action, actionButtonSize, pluginModel)
         end)
 
     elseif action:GetType() == 'Selection' then
+        SetHoverAnimation(actionButton, {BackgroundColor3 = Color3.fromRGB(84, 111, 217)})
+
         local subButtons = action:GetSubButtons()
         local totalButtons = #subButtons
 
@@ -120,6 +125,47 @@ local function CreateActionButton(action, actionButtonSize, pluginModel)
                 CloseSubFrame()
             end
         end)
+
+    elseif action:GetType() == 'Toggle' then
+        local otherStateColor = Color3.fromRGB(77, 94, 255)
+        local toNormalState = GetAnimation(actionButton, .2, {BackgroundColor3 = actionButton.BackgroundColor3})
+        local toNormalOtherState = GetAnimation(actionButton, .2, {BackgroundColor3 = otherStateColor})
+        local toHover = GetAnimation(actionButton, .2, {BackgroundColor3 = Color3.fromRGB(84, 111, 217)})
+        
+        if not action:GetState() then
+            actionButton.BackgroundColor3 = otherStateColor
+            actionButton.Text = action:GetOtherStateName()
+        end
+
+        actionButton.MouseEnter:Connect(function() toHover:Play() end)
+        actionButton.MouseLeave:Connect(function()
+            if action:GetState() then
+                toNormalState:Play()
+            else
+                toNormalOtherState:Play()
+            end
+        end)
+
+        local enabled = false
+        actionButton.MouseButton1Click:Connect(function()
+            if not enabled then
+                enabled = true
+                pluginModel.Events.CloseActionSubMenuOpened:Fire()
+
+                if action:GetState() then
+                    actionButton.Text = action:GetOtherStateName()
+                    toNormalOtherState:Play()
+                else
+                    actionButton.Text = action:GetName()
+                    toNormalState:Play()
+                end
+
+                action:Fire(pluginModel)
+                wait()
+                enabled = false
+            end
+        end)
+
     end
 
     return actionButton

@@ -42,6 +42,13 @@ while os.path.exists(name):
     n += 1
     name = getFileName(n)
 
+data = root.getData()
 with open(name, 'w') as file:
-    file.write(root.getData())
+    file.write(data)
     print("File " + name + " exported.")
+
+if os.path.exists('build_locations.txt'):
+    other_locations = [line.rstrip('\n') for line in open('build_locations.txt')]
+    for location in other_locations:
+        with open(location + '/' + EXPORT_NAME + '.rbxmx', 'w') as file:
+            file.write(data)

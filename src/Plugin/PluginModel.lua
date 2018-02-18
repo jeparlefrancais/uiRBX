@@ -28,6 +28,8 @@ PluginModel.Dialogs = require(script.Parent.Parent.UI.Dialogs)
 
 PluginModel.Selection = SelectionClass:New(PluginModel)
 
+PluginModel.Enabled = false
+
 -- ADD EVENTS
 PluginModel.Events = {
     CloseActionSubMenuOpened = Instance.new('BindableEvent') -- (opt string actionName)

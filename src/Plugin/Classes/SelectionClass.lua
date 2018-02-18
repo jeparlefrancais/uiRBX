@@ -39,7 +39,7 @@ function SelectionClass:New(pluginModel)
     new.canSelectUIElements = true
 
     UIS.InputEnded:Connect(function(input, processed)
-        if new.canSelectUIElements then
+        if pluginModel.Enabled and new.canSelectUIElements then
             if input.UserInputType == Enum.UserInputType.MouseButton1 then
                 if not processed then
                     local mouseLocation = UIS:GetMouseLocation()

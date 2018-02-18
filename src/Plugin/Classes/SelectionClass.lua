@@ -1,10 +1,32 @@
 local SEL = game:GetService('Selection')
+local SGUI = game:GetService('StarterGui')
+local UIS = game:GetService('UserInputService')
 
 local function IsA(obj, classList)
     for _, class in ipairs(classList) do
         if obj:IsA(class) then return true end
     end
     return false
+end
+
+local function IsMouseInside(x, y, guiObject)
+    local minX = guiObject.AbsolutePosition.X
+    local maxX = guiObject.AbsolutePosition.X + guiObject.AbsoluteSize.X
+    local minY = guiObject.AbsolutePosition.Y
+    local maxY = guiObject.AbsolutePosition.Y + guiObject.AbsoluteSize.Y
+
+    return (x >= minX
+        and x <= maxX
+        and y >= minY
+        and y <= maxY)
+end
+
+local function SortGuiObjects(x, y)
+    if x.ZIndex == y.ZIndex then
+        return x:IsDescendantOf(y)
+    else
+        return x.ZIndex < y.ZIndex
+    end
 end
 
 local SelectionClass = {}
@@ -14,6 +36,34 @@ function SelectionClass:New(pluginModel)
     self.__index = self
     
     new.pluginModel = pluginModel
+    new.canSelectUIElements = true
+
+    UIS.InputEnded:Connect(function(input, processed)
+        if pluginModel.Enabled and new.canSelectUIElements then
+            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                if not processed then
+                    local mouseLocation = UIS:GetMouseLocation()
+                    local guiObjects = {}
+                    for _, screenGui in ipairs(SGUI:GetChildren()) do
+                        if screenGui:IsA('ScreenGui') and screenGui.Enabled then
+                            for _, guiObject in ipairs(screenGui:GetDescendants()) do
+                                if guiObject:IsA('GuiObject') and guiObject.Visible then
+                                    if IsMouseInside(mouseLocation.X, mouseLocation.Y, guiObject) then
+                                        table.insert(guiObjects, guiObject)
+                                    end
+                                end
+                            end
+                        end
+                    end
+
+                    if #guiObjects > 0 then
+                        table.sort(guiObjects, SortGuiObjects)
+                        new:SetInstance(guiObjects[1])
+                    end
+                end
+            end
+        end
+    end)
 
     return new
 end

@@ -17,10 +17,10 @@ function ActionClass:New(buttonType, name, order, ...)
         new.eventFunction = eventFunction
     
     elseif buttonType == 'Toggle' then
-        local startState, otherStateName, eventFunction = ...
+        local startState, selectedStateName, eventFunction = ...
         new.state = startState
         new.startState = startState
-        new.otherStateName = otherStateName
+        new.selectedStateName = selectedStateName
         new.eventFunction = eventFunction
         
     elseif buttonType == 'Toolbar' then
@@ -38,7 +38,7 @@ end
 function ActionClass:Fire(...)
     if self.type == 'Toggle' then
         self.state = not self.state
-        self.eventFunction(state, ...)
+        self.eventFunction(self.state, ...)
     else
         self.eventFunction(...)
     end
@@ -76,8 +76,8 @@ function ActionClass:GetState()
     return self.state
 end
 
-function ActionClass:GetOtherStateName()
-    return self.otherStateName
+function ActionClass:GetSelectedStateName()
+    return self.selectedStateName
 end
 
 return ActionClass

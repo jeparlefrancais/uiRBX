@@ -3,11 +3,12 @@ local PluginClass = require(PluginFolder.Plugin.Classes.PluginClass)
 
 -- PARAMETERS
 local Orders = {
-    Global = 1,
-    Properties = 2,
-    Text = 3,
-    Layout = 4,
-    Style = 5
+	Global = 1,
+	Tools = 2,
+    Properties = 3,
+    Text = 4,
+    Layout = 5,
+    Style = 6
 }
 
 local Plugin = PluginClass:New(plugin)

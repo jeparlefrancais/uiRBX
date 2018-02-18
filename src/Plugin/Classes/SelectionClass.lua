@@ -68,6 +68,14 @@ function SelectionClass:New(pluginModel)
     return new
 end
 
+function SelectionClass:DisableUISelection()
+    self.canSelectUIElements = false
+end
+
+function SelectionClass:EnableUISelection()
+    self.canSelectUIElements = true
+end
+
 function SelectionClass:GetInstance(filterClassName)
     if filterClassName == nil then filterClassName = {'Instance'} end
     if type(filterClassName) == 'string' then filterClassName = {filterClassName} end

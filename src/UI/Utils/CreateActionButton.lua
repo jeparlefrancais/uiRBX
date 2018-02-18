@@ -127,22 +127,22 @@ local function CreateActionButton(action, actionButtonSize, pluginModel)
         end)
 
     elseif action:GetType() == 'Toggle' then
-        local otherStateColor = Color3.fromRGB(77, 94, 255)
+        local selectedStateColor = Color3.fromRGB(77, 94, 255)
         local toNormalState = GetAnimation(actionButton, .2, {BackgroundColor3 = actionButton.BackgroundColor3})
-        local toNormalOtherState = GetAnimation(actionButton, .2, {BackgroundColor3 = otherStateColor})
+        local toNormalSelectedState = GetAnimation(actionButton, .2, {BackgroundColor3 = selectedStateColor})
         local toHover = GetAnimation(actionButton, .2, {BackgroundColor3 = Color3.fromRGB(84, 111, 217)})
         
-        if not action:GetState() then
-            actionButton.BackgroundColor3 = otherStateColor
-            actionButton.Text = action:GetOtherStateName()
+        if action:GetState() then
+            actionButton.BackgroundColor3 = selectedStateColor
+            actionButton.Text = action:GetSelectedStateName()
         end
 
         actionButton.MouseEnter:Connect(function() toHover:Play() end)
         actionButton.MouseLeave:Connect(function()
             if action:GetState() then
-                toNormalState:Play()
+                toNormalSelectedState:Play()
             else
-                toNormalOtherState:Play()
+                toNormalState:Play()
             end
         end)
 
@@ -153,11 +153,11 @@ local function CreateActionButton(action, actionButtonSize, pluginModel)
                 pluginModel.Events.CloseActionSubMenuOpened:Fire()
 
                 if action:GetState() then
-                    actionButton.Text = action:GetOtherStateName()
-                    toNormalOtherState:Play()
-                else
                     actionButton.Text = action:GetName()
                     toNormalState:Play()
+                else
+                    actionButton.Text = action:GetSelectedStateName()
+                    toNormalSelectedState:Play()
                 end
 
                 action:Fire(pluginModel)

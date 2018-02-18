@@ -3,7 +3,11 @@ local Create = require(script.Parent.Utils.Create)
 local CreateSection = require(script.Parent.Utils.CreateSection)
 
 local function CreateGui(size, pluginModel)
-    local gui = Create'ScreenGui'{Name = 'UIRbxEditor'}
+    local gui = Create'ScreenGui'{
+        Name = 'UIRbxEditor',
+        Enabled = false,
+        Parent = game:GetService('CoreGui')
+    }
 
     local frame = Create'Frame'{
         AnchorPoint = Vector2.new(0, .5),
@@ -26,6 +30,10 @@ local function CreateGui(size, pluginModel)
     for _, section in ipairs(pluginModel.Sections) do
         CreateSection(section, frame, pluginModel)
     end
+
+    pluginModel.Events.PluginEnabledChanged.Event:Connect(function(enabled)
+        gui.Enabled = enabled
+    end)
 
     return gui
 end

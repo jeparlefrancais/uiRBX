@@ -14,7 +14,15 @@ function ActionClass:New(buttonType, name, order, ...)
     elseif buttonType == 'Selection' then
         local subButtonList, eventFunction = ...
         new.subButtonList = subButtonList
-        new.eventFunction = eventFunction        
+        new.eventFunction = eventFunction  
+        
+    elseif buttonType == 'Toolbar' then
+        local toolbarName, tip, image, eventFunction = ...
+        new.toolbarName = toolbarName
+        new.tip = tip
+        new.image = image
+        new.eventFunction = eventFunction  
+
     end
 
     return new
@@ -38,6 +46,18 @@ end
 
 function ActionClass:GetSubButtons()
     return self.subButtonList
+end
+
+function ActionClass:GetToolbarName()
+    return self.toolbarName
+end
+
+function ActionClass:GetTip()
+    return self.tip
+end
+
+function ActionClass:GetImage()
+    return self.image
 end
 
 return ActionClass

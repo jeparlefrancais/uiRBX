@@ -1,4 +1,3 @@
-local Create = require(script.Parent.Parent.Utils.Create)
 local SelectEnumItem = require(script.Parent.SelectEnumItem)
 
 local function GetFont(name)

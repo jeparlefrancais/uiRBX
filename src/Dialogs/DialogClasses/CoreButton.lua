@@ -1,5 +1,5 @@
-local Create = require(script.Parent.Parent.Utils.Create)
-local SetHoverAnimation = require(script.Parent.Parent.Utils.SetHoverAnimation)
+local Create = require(script.Parent.Parent.Parent.UI.Utils.Create)
+local SetHoverAnimation = require(script.Parent.Parent.Parent.UI.Utils.SetHoverAnimation)
 local Core = require(script.Parent.Core)
 
 local function CoreButton(title, buttonText, buttonColor, buttonHoverColor)

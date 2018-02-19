@@ -1,5 +1,5 @@
-local Create = require(script.Parent.Utils.Create)
-local GetAnimation = require(script.Parent.Utils.GetAnimation)
+local Create = require(script.Parent.Parent.UI.Utils.Create)
+local GetAnimation = require(script.Parent.Parent.UI.Utils.GetAnimation)
 
 local Dialogs = {}
 local DialogParent = Create'ScreenGui'{

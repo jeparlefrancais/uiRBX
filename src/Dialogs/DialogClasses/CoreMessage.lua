@@ -1,4 +1,4 @@
-local Create = require(script.Parent.Parent.Utils.Create)
+local Create = require(script.Parent.Parent.Parent.UI.Utils.Create)
 local CoreButton = require(script.Parent.CoreButton)
 
 local function CoreMessage(title, msg, buttonText, buttonColor, buttonHoverColor)

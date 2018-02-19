@@ -12,7 +12,7 @@ function PluginClass:New(plugin)
     new.plugin = plugin
     new.toolbar = {}
 
-    new.Dialogs = require(script.Parent.Parent.Parent.UI.Dialogs)
+    new.Dialogs = require(script.Parent.Parent.Parent.Dialogs.Dialogs)
     new.Sections = {}
     new.Selection = SelectionClass:New(new)
     new.Enabled = false

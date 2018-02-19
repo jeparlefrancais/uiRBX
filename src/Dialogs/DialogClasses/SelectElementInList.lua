@@ -1,6 +1,6 @@
-local Create = require(script.Parent.Parent.Utils.Create)
+local Create = require(script.Parent.Parent.Parent.UI.Utils.Create)
+local SetHoverAnimation = require(script.Parent.Parent.Parent.UI.Utils.SetHoverAnimation)
 local CoreButton = require(script.Parent.CoreButton)
-local SetHoverAnimation = require(script.Parent.Parent.Utils.SetHoverAnimation)
 
 local ElementsPerPage = 5
 

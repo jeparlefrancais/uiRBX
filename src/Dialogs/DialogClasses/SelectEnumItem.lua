@@ -1,4 +1,3 @@
-local Create = require(script.Parent.Parent.Utils.Create)
 local SelectElementInList = require(script.Parent.SelectElementInList)
 
 local function SelectEnumItem(title, enumType)

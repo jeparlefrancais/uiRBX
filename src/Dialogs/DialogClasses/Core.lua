@@ -1,4 +1,4 @@
-local Create = require(script.Parent.Parent.Utils.Create)
+local Create = require(script.Parent.Parent.Parent.UI.Utils.Create)
 
 local function Core(title)
     local frame = Create'Frame'{

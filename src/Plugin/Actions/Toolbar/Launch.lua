@@ -6,7 +6,7 @@ return ActionClass:New(
     1,
     'UI Toolkit',
     'Open/Close the Editor',
-    'rbxassetid://1428166234',
+    'http://www.roblox.com/asset/?id=1428166227',
     function(pluginModel)
         if pluginModel.Enabled then
             pluginModel:Close()

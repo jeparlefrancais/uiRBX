@@ -7,8 +7,4 @@ local property = require(script.Parent.Parent.Classes.StringChoicePropertyClass)
     'Default' -- default
 )
 
-property:Connect(function(pluginModel)
-    -- redraw the UI by firing pluginModel.Events
-end)
-
 return property

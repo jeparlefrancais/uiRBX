@@ -37,8 +37,9 @@ function CoreProperty:Set(value)
     if self.value ~= value then
         self.value = value
         if self.changedFunction ~= nil then
-            self.changedFunction(pluginModel, value)
+            self.changedFunction()
         end
+        self.pluginModel.Events.PropertyChanged:Fire(self.name, self.value)
     end
 end
 

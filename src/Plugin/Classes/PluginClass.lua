@@ -16,10 +16,13 @@ function PluginClass:New(plugin)
     new.Sections = {}
     new.Selection = SelectionClass:New(new)
     new.Enabled = false
+    new.PropertiesOpened = false
     new.Events = {}
     new.Properties = {}
 
     new:AddEvent('PluginEnabledChanged') -- (bool enabled)
+    new:AddEvent('PropertyChanged') -- (string propertyName, value)
+    new:AddEvent('PropertiesOpenedChanged') --(bool enabled)
 
     return new
 end
@@ -30,6 +33,7 @@ end
 
 function PluginClass:AddProperty(property)
     self.Properties[property:GetName()] = property
+    property:SetPlugin(self)
 end
 
 function PluginClass:GetProperty(propertyName)

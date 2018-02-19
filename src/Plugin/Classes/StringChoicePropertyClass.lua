@@ -7,7 +7,7 @@ function StringChoicePropertyClass.__index(obj, key) -- allow inheritance
 end
 
 function StringChoicePropertyClass:New(name, order, choices, default)
-    local new = setmetatable(CorePropertyClass:New('stringchoice', name, order, default), self)
+    local new = setmetatable(CorePropertyClass:New('StringChoice', name, order, default), self)
     new.choices = choices
     return new
 end

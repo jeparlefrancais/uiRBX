@@ -7,7 +7,7 @@ function BoolPropertyClass.__index(obj, key) -- allow inheritance
 end
 
 function BoolPropertyClass:New(name, order, default)
-    local new = setmetatable(CorePropertyClass:New('bool', name, order, default), self)
+    local new = setmetatable(CorePropertyClass:New('Bool', name, order, default), self)
     return new
 end
 

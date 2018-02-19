@@ -7,7 +7,7 @@ function NumberPropertyClass.__index(obj, key) -- allow inheritance
 end
 
 function NumberPropertyClass:New(name, order, minimum, maximum, increment, precision, default)
-    local new = setmetatable(CorePropertyClass:New('float', name, order, default), self)
+    local new = setmetatable(CorePropertyClass:New('Number', name, order, default), self)
     new.minimum = minimum
     new.maximum = maximum
     new.increment = increment
@@ -44,6 +44,7 @@ function NumberPropertyClass:Decrease()
 end
 
 function NumberPropertyClass:Set(value)
+    local precision = math.pow(10, -self.precision)
     value = math.floor(value / precision) * precision
     CorePropertyClass.Set(self, value)
 end

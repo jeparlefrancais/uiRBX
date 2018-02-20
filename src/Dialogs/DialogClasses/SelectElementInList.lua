@@ -32,10 +32,11 @@ local function SelectElementInList(title, stringList, selectedFunction)
     local gridListLayout = Create'UIGridLayout'{
         Name = 'GridLayout',
         CellPadding = UDim2.new(0, 0, 0, 5),
-        CellSize = UDim2.new(1, 0, 1/totalElements, -5),
+        CellSize = UDim2.new(1, 0, totalElements > ElementsPerPage and 1/totalElements or 1/ElementsPerPage, -5),
         FillDirection = Enum.FillDirection.Horizontal,
         FillDirectionMaxCells = 1,
         HorizontalAlignment = Enum.HorizontalAlignment.Center,
+        VerticalAlignment = Enum.VerticalAlignment.Center,
         SortOrder = Enum.SortOrder.LayoutOrder,
         Parent = subContent
     }

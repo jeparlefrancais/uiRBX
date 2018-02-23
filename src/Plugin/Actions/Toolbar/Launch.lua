@@ -12,6 +12,7 @@ return ActionClass:New(
             pluginModel:Close()
         else
             pluginModel:Open()
+            pluginModel.plugin:Activate(true)
         end
     end
 )

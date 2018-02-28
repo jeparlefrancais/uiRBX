@@ -1,7 +1,7 @@
 local Create = require(script.Parent.Utils.Create)
-local CreateSection = require(script.Parent.Utils.CreateSection)
-local CreatePropertiesPanel = require(script.Parent.Utils.CreatePropertiesPanel)
-local CreateGrid = require(script.Parent.Utils.CreateGrid)
+local CreateSection = require(script.Parent.CreateSection)
+local CreatePropertiesPanel = require(script.Parent.CreatePropertiesPanel)
+local CreateGrid = require(script.Parent.CreateGrid)
 
 local function CreateGui(pluginModel)
     local gui = Create'ScreenGui'{

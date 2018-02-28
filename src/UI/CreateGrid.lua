@@ -1,5 +1,4 @@
-local GetAnimation = require(script.Parent.GetAnimation)
-local Create = require(script.Parent.Create)
+local Create = require(script.Parent.Utils.Create)
 
 local GRID_POINT_MARGE = 24
 local MAX_INDEX = 15

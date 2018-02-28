@@ -1,5 +1,4 @@
-local Create = require(script.Parent.Create)
-local CreateActionButton = require(script.Parent.CreateActionButton)
+local Create = require(script.Parent.Utils.Create)
 
 local CreatePropertyType = {}
 for _, createPropertyModule in ipairs(script.Parent.Properties:GetChildren()) do

@@ -1,5 +1,5 @@
-local Create = require(script.Parent.Parent.Create)
-local SetHoverAnimation = require(script.Parent.Parent.SetHoverAnimation)
+local Create = require(script.Parent.Parent.Utils.Create)
+local SetHoverAnimation = require(script.Parent.Parent.Utils.SetHoverAnimation)
 
 local function CreateNumberProperty(property, pluginModel, contentParent)
     Create'UIListLayout'{

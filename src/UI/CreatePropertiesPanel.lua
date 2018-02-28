@@ -1,5 +1,5 @@
-local Create = require(script.Parent.Create)
-local GetAnimation = require(script.Parent.GetAnimation)
+local Create = require(script.Parent.Utils.Create)
+local GetAnimation = require(script.Parent.Utils.GetAnimation)
 local CreateProperty = require(script.Parent.CreateProperty)
 
 local PROPERTIES_PER_PAGE = 20

@@ -1,8 +1,8 @@
 local UIS = game:GetService('UserInputService')
 
-local Create = require(script.Parent.Create)
+local Create = require(script.Parent.Utils.Create)
+local SetHoverAnimation = require(script.Parent.Utils.SetHoverAnimation)
 local CreateActionButton = require(script.Parent.CreateActionButton)
-local SetHoverAnimation = require(script.Parent.SetHoverAnimation)
 
 local function CreateSection(section, parent, pluginModel)
     local sectionButton = Create'TextButton'{

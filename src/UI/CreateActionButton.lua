@@ -1,6 +1,6 @@
-local Create = require(script.Parent.Create)
-local GetAnimation = require(script.Parent.GetAnimation)
-local SetHoverAnimation = require(script.Parent.SetHoverAnimation)
+local Create = require(script.Parent.Utils.Create)
+local GetAnimation = require(script.Parent.Utils.GetAnimation)
+local SetHoverAnimation = require(script.Parent.Utils.SetHoverAnimation)
 
 local function CreateActionButton(action, actionButtonSize, pluginModel)
     local actionButton = Create'TextButton'{

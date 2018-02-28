@@ -1,5 +1,5 @@
-local Create = require(script.Parent.Parent.Create)
-local GetAnimation = require(script.Parent.Parent.GetAnimation)
+local Create = require(script.Parent.Parent.Utils.Create)
+local GetAnimation = require(script.Parent.Parent.Utils.GetAnimation)
 
 local function CreateBoolProperty(property, pluginModel, contentParent)
     local boolSliderColorOn = Color3.fromRGB(72, 194, 63)

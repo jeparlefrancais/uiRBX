@@ -1,4 +1,4 @@
-local CorePropertyClass = require(script.Parent.CorePropertyClass)
+local CorePropertyClass = require(script.Parent.Core)
 
 local StringChoicePropertyClass = {}
 

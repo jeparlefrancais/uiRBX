@@ -1,4 +1,4 @@
-local property = require(script.Parent.Parent.Classes.NumberPropertyClass):New(
+local property = require(script.Parent.Parent.Classes.Properties).Number:New(
     'Size', -- name
     2, -- order
     .015, -- minimum

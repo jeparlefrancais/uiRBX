@@ -1,7 +1,5 @@
 local SectionClass = require(script.Parent.SectionClass)
 local SelectionClass = require(script.Parent.SelectionClass)
-local BoolPropertyClass = require(script.Parent.BoolPropertyClass)
-local StringChoicePropertyClass = require(script.Parent.StringChoicePropertyClass)
 
 local PluginClass = {}
 

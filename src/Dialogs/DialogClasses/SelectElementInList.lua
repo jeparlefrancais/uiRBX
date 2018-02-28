@@ -1,12 +1,12 @@
 local Create = require(script.Parent.Parent.Parent.UI.Utils.Create)
 local SetHoverAnimation = require(script.Parent.Parent.Parent.UI.Utils.SetHoverAnimation)
-local CoreButton = require(script.Parent.CoreButton)
+local CoreCancelButton = require(script.Parent.CoreCancelButton)
 
 local ElementsPerPage = 5
 
 local function SelectElementInList(title, stringList, selectedFunction)
     
-    local dialog = CoreButton(title, 'Cancel', Color3.fromRGB(255, 99, 99), Color3.fromRGB(179, 70, 70))
+    local dialog = CoreCancelButton(title)
     
     local totalElements = #stringList
 
@@ -87,11 +87,6 @@ local function SelectElementInList(title, stringList, selectedFunction)
     }
 
     textConstraint:Clone().Parent = messageShadow
-
-    -- if Cancel button is pressed, returns nil
-    dialog.MainButton.MouseButton1Click:Connect(function()
-        dialog.Result:Fire()
-    end)
 
     return dialog
 end

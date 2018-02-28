@@ -1,36 +1,17 @@
 local Actions = require(script.Parent.Parent.Parent.Classes.Actions)
 
-return Actions.Selection:New(
+return Actions.Trigger:New(
     'Quick Position',
-    {
-        'Center',
-        'Center-Left',
-        'Center-Right',
-        'Top-Left',
-        'Top-Center',
-        'Top-Right',
-        'Bottom-Left',
-        'Bottom-Center',
-        'Bottom-Right'
-    },
     2,
-    function(subAction, pluginModel)
+    function(pluginModel)
         local objects = pluginModel.Selection:GetInstances('GuiObject')
         if objects then
-            local x, y = 0, 0
-            if subAction == 'Center' or subAction == 'Center-Left' or subAction == 'Center-Right' then
-                y = .5
-            elseif subAction == 'Bottom-Center' or subAction == 'Bottom-Left' or subAction == 'Bottom-Right' then
-                y = 1
-            end
-            if subAction == 'Center' or subAction == 'Top-Center' or subAction == 'Bottom-Center' then
-                x = .5
-            elseif subAction == 'Center-Right' or subAction == 'Top-Right' or subAction == 'Bottom-Right' then
-                x = 1
-            end
-            for _, obj in ipairs(objects) do
-                obj.AnchorPoint = Vector2.new(x, y)
-                obj.Position = UDim2.new(x, 0, y, 0)
+            local anchor = pluginModel.Dialogs.AnchorPoint('Select Position')
+            if anchor then
+                for _, obj in ipairs(objects) do
+                    obj.AnchorPoint = anchor
+                    obj.Position = UDim2.new(anchor.X, 0, anchor.Y, 0)
+                end
             end
         end
     end

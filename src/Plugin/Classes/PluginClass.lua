@@ -21,6 +21,10 @@ function PluginClass:New(plugin)
     new.Properties = {}
 
     new:AddEvent('PluginEnabledChanged') -- (bool enabled)
+    new:AddEvent('ActionGroupSelected') -- (string groupName, string selectedActionName)
+    new:AddEvent('GridEnabledChanged') -- (bool enabled)
+    new:AddEvent('GridChanged') -- ()
+    new:AddEvent('GridEnvironmentChanged') -- (opt GuiObject localGuiObject)
     new:AddEvent('PropertyChanged') -- (string propertyName, value)
     new:AddEvent('PropertiesOpenedChanged') --(bool enabled)
 

@@ -1,13 +1,12 @@
-local ActionClass = require(script.Parent.Parent.Parent.Classes.ActionClass)
+local Actions = require(script.Parent.Parent.Parent.Classes.Actions)
 
-return ActionClass:New(
-    'Selection',
+return Actions.Selection:New(
     'List',
-    1,
     {
         'Vertical',
         'Horizontal'
     },
+    1,
     function(subAction, pluginModel)
         pluginModel.Dialogs.Error('This functionality [' .. subAction .. '] is not implemented yet.')
     end

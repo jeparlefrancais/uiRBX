@@ -1,9 +1,7 @@
-local ActionClass = require(script.Parent.Parent.Parent.Classes.ActionClass)
+local Actions = require(script.Parent.Parent.Parent.Classes.Actions)
 
-return ActionClass:New(
-    'Selection',
+return Actions.Selection:New(
     'Grid Anchor',
-    5,
     {
         'Center',
         'Center-Left',
@@ -15,6 +13,7 @@ return ActionClass:New(
         'Bottom-Center',
         'Bottom-Right'
     },
+    5,
     function(subAction, pluginModel)
         pluginModel.Dialogs.Error('This functionality is not implemented yet.')
     end

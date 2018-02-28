@@ -1,17 +1,17 @@
 local Actions = require(script.Parent.Parent.Parent.Classes.Actions)
 
 return Actions.Toggle:New(
-    'Select',
-    'Select',
-    'Select',
-    true,
+    'Move',
+    'Move',
+    'Move',
+    false,
     'ToolsGroup',
-    1,
+    2,
     function(state, pluginModel)
         if state then
-            pluginModel.Selection:EnableUISelection()
+            pluginModel.Selection:EnableDrag()
         else
-            pluginModel.Selection:DisableUISelection()
+            pluginModel.Selection:DisableDrag()
         end
     end
 )

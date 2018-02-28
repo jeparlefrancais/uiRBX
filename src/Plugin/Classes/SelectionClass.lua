@@ -1,3 +1,5 @@
+local GridClass = require(script.Parent.GridClass)
+
 local SEL = game:GetService('Selection')
 local SGUI = game:GetService('StarterGui')
 local UIS = game:GetService('UserInputService')
@@ -56,7 +58,9 @@ function SelectionClass:New(pluginModel)
     self.__index = self
     
     new.pluginModel = pluginModel
-    new.canSelectUIElements = true
+    new.Grid = GridClass:New(pluginModel)
+    new.canSelect = true
+    new.canDrag = false
 
     local Dragging = false
     local DragStartTime = nil
@@ -68,7 +72,7 @@ function SelectionClass:New(pluginModel)
     local MinimalPixelDisplacement = 10
 
     UIS.InputBegan:Connect(function(input, processed)
-        if not processed and pluginModel.Enabled and new.canSelectUIElements then
+        if not processed and pluginModel.Enabled and new.canDrag then
             if input.UserInputType == Enum.UserInputType.MouseButton1 then
                 local mouseLocation = UIS:GetMouseLocation()
                 local guiObject = GetObjectFromClick(mouseLocation.X, mouseLocation.Y, guiObject)
@@ -84,50 +88,59 @@ function SelectionClass:New(pluginModel)
     end)
 
     UIS.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement then
-            if DragStartTime ~= nil and DragObject ~= nil then
-                local mousePixelDifference = UIS:GetMouseLocation() - DragBeginMouseLocation
-                if (tick() - DragStartTime) >= DragDelay
-                    and mousePixelDifference.magnitude >= MinimalPixelDisplacement then
+        if pluginModel.Enabled and new.canDrag then
+            if input.UserInputType == Enum.UserInputType.MouseMovement then
+                if DragStartTime ~= nil and DragObject ~= nil then
+                    local mouseLocation = UIS:GetMouseLocation()
+                    local mousePixelDifference = mouseLocation - DragBeginMouseLocation
+                    if (tick() - DragStartTime) >= DragDelay
+                        and mousePixelDifference.magnitude >= MinimalPixelDisplacement then
 
-                    if not Dragging then
-                        Dragging = true
-                        self:SetInstance(DragObject)
+                        if not Dragging then
+                            Dragging = true
+                            new:SetInstance(DragObject)
+                            new.Grid:Enable()
+                        end
+
+                        if new.Grid:IsGlobal() then
+                            pluginModel.Events.GridEnvironmentChanged:Fire()
+                        else
+                            pluginModel.Events.GridEnvironmentChanged:Fire(DragObject.Parent)
+                        end
+                        
+                        -- based on the grid anchor point and format, try to find the best position
+                        local goalLocation = new.Grid:GetBestPosition(mouseLocation.X, mouseLocation.Y, DragObject.Parent.AbsolutePosition, DragObject.Parent.AbsoluteSize)
+                        
+                        if goalLocation and DragObject.Position ~= goalLocation then
+                            DragObject:TweenPosition(goalLocation, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, .15, true)
+                        end
                     end
-                    
-                    -- based on the grid anchor point and format, try to find the best position
-                    local goalLocation = OriginalPosition + UDim2.new(
-                        mousePixelDifference.X / ScreenGui.AbsoluteSize.X,  -- Scale-X
-                        0,                                                  -- Offset-X
-                        mousePixelDifference.Y / ScreenGui.AbsoluteSize.Y,  -- Scale-Y
-                        0                                                   -- Offset-Y
-                    )
-                    DragObject:TweenPosition(goalLocation, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, .15, true)
                 end
             end
         end
     end)
 
     UIS.InputEnded:Connect(function(input, processed)
-        if not processed and pluginModel.Enabled and new.canSelectUIElements then
+        if not processed and pluginModel.Enabled and (new.canSelect or new.canDrag) then
             if input.UserInputType == Enum.UserInputType.MouseButton1 then
                 if Dragging then
                     Dragging = false
+                    new.Grid:Disable()
                 else
                     local mouseLocation = UIS:GetMouseLocation()
                     local guiObject = GetObjectFromClick(mouseLocation.X, mouseLocation.Y, guiObject)
                     if guiObject then
                         if UIS:IsKeyDown(Enum.KeyCode.LeftControl) or UIS:IsKeyDown(Enum.KeyCode.RightControl) then
-                            if self:IsInstanceSelected(guiObject) then
-                                self:DeselectInstance(guiObject)
+                            if new:IsInstanceSelected(guiObject) then
+                                new:DeselectInstance(guiObject)
                             else
-                                self:AddInstanceToSelection(guiObject)
+                                new:AddInstanceToSelection(guiObject)
                             end
                         else
                             new:SetInstance(guiObject)
                         end
                     else
-                        self:DeselectAll()
+                        new:DeselectAll()
                     end
                 end
                 DragStartTime = nil
@@ -150,11 +163,19 @@ function SelectionClass:IsInstanceSelected(instance)
 end
 
 function SelectionClass:DisableUISelection()
-    self.canSelectUIElements = false
+    self.canSelect = false
 end
 
 function SelectionClass:EnableUISelection()
-    self.canSelectUIElements = true
+    self.canSelect = true
+end
+
+function SelectionClass:EnableDrag()
+    self.canDrag = true
+end
+
+function SelectionClass:DisableDrag()
+    self.canDrag = false
 end
 
 function SelectionClass:GetInstance(filterClassName)

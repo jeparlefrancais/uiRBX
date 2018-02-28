@@ -1,12 +1,11 @@
-local ActionClass = require(script.Parent.Parent.Parent.Classes.ActionClass)
+local Actions = require(script.Parent.Parent.Parent.Classes.Actions)
 
-return ActionClass:New(
-    'Toolbar',
+return Actions.Toolbar:New(
     'Launch UI Editor',
-    1,
     'UI Toolkit',
     'Open/Close the Editor',
     'http://www.roblox.com/asset/?id=1428166227',
+    1,
     function(pluginModel)
         if pluginModel.Enabled then
             pluginModel:Close()

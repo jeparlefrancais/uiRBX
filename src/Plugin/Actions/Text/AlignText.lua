@@ -1,9 +1,7 @@
-local ActionClass = require(script.Parent.Parent.Parent.Classes.ActionClass)
+local Actions = require(script.Parent.Parent.Parent.Classes.Actions)
 
-return ActionClass:New(
-    'Selection',
+return Actions.Selection:New(
     'Align Text',
-    2,
     {
         'Center',
         'Center-Left',
@@ -15,6 +13,7 @@ return ActionClass:New(
         'Bottom-Center',
         'Bottom-Right'
     },
+    2,
     function(subAction, pluginModel)
         local objects = pluginModel.Selection:GetInstances{'TextBox', 'TextLabel', 'TextButton'}
         if objects then

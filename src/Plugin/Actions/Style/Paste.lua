@@ -1,7 +1,6 @@
-local ActionClass = require(script.Parent.Parent.Parent.Classes.ActionClass)
+local Actions = require(script.Parent.Parent.Parent.Classes.Actions)
 
-return ActionClass:New(
-    'Trigger',
+return Actions.Trigger:New(
     'Paste Style',
     2,
     function(pluginModel)

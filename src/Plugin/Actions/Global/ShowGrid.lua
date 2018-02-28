@@ -1,12 +1,17 @@
-local ActionClass = require(script.Parent.Parent.Parent.Classes.ActionClass)
+local Actions = require(script.Parent.Parent.Parent.Classes.Actions)
 
-return ActionClass:New(
-    'Toggle',
-    'Grid [off]',
+return Actions.Toggle:New(
+    'Grid Environment',
+    'Local Grid',
+    'Global Grid',
+    true,
+    'GridGroup',
     3,
-    false,
-    'Grid [on]',
     function(state, pluginModel)
-        pluginModel.Dialogs.Error('This functionality is not implemented yet.')
+        if state then
+            pluginModel.Selection.Grid:SetLocal()
+        else
+            pluginModel.Selection.Grid:SetGlobal()
+        end
     end
 )

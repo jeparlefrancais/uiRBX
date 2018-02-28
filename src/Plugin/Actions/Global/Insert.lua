@@ -1,4 +1,4 @@
-local ActionClass = require(script.Parent.Parent.Parent.Classes.ActionClass)
+local Actions = require(script.Parent.Parent.Parent.Classes.Actions)
 
 local InstanceList = {
     'Frame',
@@ -11,8 +11,7 @@ local InstanceList = {
     'ScreenGui'
 }
 
-return ActionClass:New(
-    'Trigger',
+return Actions.Trigger:New(
     'Insert',
     1,
     function(pluginModel)

@@ -1,7 +1,6 @@
-local ActionClass = require(script.Parent.Parent.Parent.Classes.ActionClass)
+local Actions = require(script.Parent.Parent.Parent.Classes.Actions)
 
-return ActionClass:New(
-    'Trigger',
+return Actions.Trigger:New(
     'Size',
     3,
     function(pluginModel)

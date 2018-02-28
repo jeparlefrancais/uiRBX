@@ -16,8 +16,6 @@ local function CreateActionButton(action, actionButtonSize, pluginModel)
         TextScaled = true
     }
 
-    
-
     if action:GetType() == 'Trigger' then
         SetHoverAnimation(actionButton, {BackgroundColor3 = Color3.fromRGB(84, 111, 217)})
 
@@ -127,22 +125,23 @@ local function CreateActionButton(action, actionButtonSize, pluginModel)
         end)
 
     elseif action:GetType() == 'Toggle' then
-        local selectedStateColor = Color3.fromRGB(77, 94, 255)
-        local toNormalState = GetAnimation(actionButton, .2, {BackgroundColor3 = actionButton.BackgroundColor3})
-        local toNormalSelectedState = GetAnimation(actionButton, .2, {BackgroundColor3 = selectedStateColor})
+        local otherStateColor = Color3.fromRGB(77, 94, 255)
+        local toDisabledState = GetAnimation(actionButton, .2, {BackgroundColor3 = actionButton.BackgroundColor3})
+        local toEnabledState = GetAnimation(actionButton, .2, {BackgroundColor3 = otherStateColor})
         local toHover = GetAnimation(actionButton, .2, {BackgroundColor3 = Color3.fromRGB(84, 111, 217)})
         
         if action:GetState() then
-            actionButton.BackgroundColor3 = selectedStateColor
-            actionButton.Text = action:GetSelectedStateName()
+            actionButton.BackgroundColor3 = otherStateColor
         end
+
+        actionButton.Text = action:GetCurrentName()
 
         actionButton.MouseEnter:Connect(function() toHover:Play() end)
         actionButton.MouseLeave:Connect(function()
             if action:GetState() then
-                toNormalSelectedState:Play()
+                toEnabledState:Play()
             else
-                toNormalState:Play()
+                toDisabledState:Play()
             end
         end)
 
@@ -152,20 +151,27 @@ local function CreateActionButton(action, actionButtonSize, pluginModel)
                 enabled = true
                 pluginModel.Events.CloseActionSubMenuOpened:Fire()
 
-                if action:GetState() then
-                    actionButton.Text = action:GetName()
-                    toNormalState:Play()
-                else
-                    actionButton.Text = action:GetSelectedStateName()
-                    toNormalSelectedState:Play()
-                end
-
                 action:Fire(pluginModel)
+                
+                pluginModel.Events.ActionGroupSelected:Fire(action:GetGroupName(), action:GetName())
                 wait()
                 enabled = false
             end
         end)
 
+        pluginModel.Events.ActionGroupSelected.Event:Connect(function(groupName, selectedActionName)
+            if action:HasGroupName(groupName) and action:GetName() ~= selectedActionName then
+                action:Disable(pluginModel)
+                toDisabledState:Play()
+            else
+                if action:GetState() then
+                    toEnabledState:Play()
+                else
+                    toDisabledState:Play()
+                end
+                actionButton.Text = action:GetCurrentName()
+            end
+        end)
     end
 
     return actionButton

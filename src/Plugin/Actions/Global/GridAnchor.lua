@@ -1,20 +1,12 @@
 local Actions = require(script.Parent.Parent.Parent.Classes.Actions)
 
-return Actions.Selection:New(
+return Actions.Trigger:New(
     'Grid Anchor',
-    {
-        'Center',
-        'Center-Left',
-        'Center-Right',
-        'Top-Left',
-        'Top-Center',
-        'Top-Right',
-        'Bottom-Left',
-        'Bottom-Center',
-        'Bottom-Right'
-    },
     5,
-    function(subAction, pluginModel)
-        pluginModel.Dialogs.Error('This functionality is not implemented yet.')
+    function(pluginModel)
+        local anchor = pluginModel.Dialogs.AnchorPoint('Select Grid Anchor')
+        if anchor then
+            pluginModel.Selection.Grid:SetAnchorPosition(UDim2.new(anchor.X, 0, anchor.Y))
+        end
     end
 )

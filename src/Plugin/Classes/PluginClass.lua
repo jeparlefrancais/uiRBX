@@ -1,5 +1,6 @@
 local SectionClass = require(script.Parent.SectionClass)
 local SelectionClass = require(script.Parent.SelectionClass)
+local StyleManagerClass = require(script.Parent.StyleManagerClass)
 
 local PluginClass = {}
 
@@ -13,6 +14,7 @@ function PluginClass:New(plugin)
     new.Dialogs = require(script.Parent.Parent.Parent.Dialogs.Dialogs)
     new.Sections = {}
     new.Selection = SelectionClass:New(new)
+    new.StyleManager = StyleManagerClass:New(new)
     new.Enabled = false
     new.PropertiesOpened = false
     new.Events = {}

@@ -4,6 +4,9 @@ return Actions.Trigger:New(
     'Copy Style',
     1,
     function(pluginModel)
-        pluginModel.Dialogs.Error('This functionality is not implemented yet.')
+        local guiObject = pluginModel.Selection:GetInstance('GuiObject')
+        if guiObject then
+            pluginModel.StyleManager:CopyStyle(guiObject)
+        end
     end
 )

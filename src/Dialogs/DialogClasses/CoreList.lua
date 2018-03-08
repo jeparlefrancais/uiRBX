@@ -2,8 +2,6 @@ local Create = require(script.Parent.Parent.Parent.UI.Utils.Create)
 local CoreCancelButton = require(script.Parent.CoreCancelButton)
 local CoreAcceptCancelButtons = require(script.Parent.CoreAcceptCancelButtons)
 
-local ElementsPerPage = 5
-
 local function CoreList(title, size, elementsPerPage, acceptButton)
     
     local dialog = acceptButton and CoreAcceptCancelButtons(title) or CoreCancelButton(title)
@@ -14,7 +12,7 @@ local function CoreList(title, size, elementsPerPage, acceptButton)
         BorderSizePixel = 0,
         Position = UDim2.new(0, 12, 0, 0),
         Size = UDim2.new(1, -12, 1, 0),
-        CanvasSize = UDim2.new(0, 0, (size > elementsPerPage and .25 * size or 1), 0),
+        CanvasSize = UDim2.new(0, 0, (size > elementsPerPage and size/elementsPerPage or 1), 0),
         Parent = dialog.Content
     }
 
